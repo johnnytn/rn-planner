@@ -14,23 +14,22 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import * as React from "react"
 import { ColorSchemeName, Pressable } from "react-native"
 
-import Colors from "../theme/Colors"
-import useColorScheme from "../hooks/useColorScheme"
+import Colors from "theme/Colors"
+import useColorScheme from "hooks/useColorScheme"
 // todo: move
-import ModalScreen from "../screens/ModalScreen"
-import NotFoundScreen from "../screens/NotFoundScreen"
-import HomeView from "../screens/home"
-import TabTwoScreen from "../screens/home/TabTwoScreen"
-import DashboardView from "../screens/dashboard"
+import ModalScreen from "screens/ModalScreen"
+import NotFoundScreen from "screens/NotFoundScreen"
+import HomeView from "screens/home"
+import TabTwoScreen from "screens/home/TabTwoScreen"
+import DashboardView from "screens/dashboard"
 
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
-} from "../commons/types/navigation.types"
+} from "commons/types/navigation.types"
 import LinkingConfiguration from "./LinkingConfiguration"
-// import Colors from '../constants/Colors';
-import { PAGES } from "../commons/types/page.enums"
+import { PAGES } from "commons/types"
 
 export default function Navigation({
   colorScheme,

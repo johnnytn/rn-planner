@@ -1,12 +1,8 @@
-import { Text } from "react-native"
-import EditScreenInfo from "../../components/EditScreenInfo"
-import { View } from "../../components/Themed"
-// import { RootTabScreenProps } from "../../../types"
+import { View } from "components/Themed"
 import { homeStyles } from "./styles"
-import { PAGES } from "../../commons/types"
+import { PAGES } from "commons/types"
 import ExpenseListView from "./Expenses"
-import { RootTabScreenProps } from "../../commons/types/navigation.types"
-// import { RootTabScreenProps } from "commons/types/navigation.types"
+import { RootTabScreenProps } from "commons/types/navigation.types"
 
 const HomeView = ({ navigation }: RootTabScreenProps<PAGES.HOME>) => {
   return (
