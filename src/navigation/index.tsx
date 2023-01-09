@@ -19,9 +19,9 @@ import useColorScheme from "hooks/useColorScheme"
 // todo: move
 import ModalScreen from "screens/ModalScreen"
 import NotFoundScreen from "screens/NotFoundScreen"
-import HomeView from "screens/home"
+import HomeScreen from "screens/home"
 import TabTwoScreen from "screens/home/TabTwoScreen"
-import DashboardView from "screens/dashboard"
+import DashboardScreen from "screens/dashboard"
 
 import {
   RootStackParamList,
@@ -57,7 +57,7 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen
         name="Dashboard"
-        component={DashboardView}
+        component={DashboardScreen}
         options={{ title: "dash!" }}
       />
       <Stack.Screen
@@ -95,7 +95,7 @@ function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name={PAGES.HOME}
-        component={HomeView}
+        component={HomeScreen}
         options={({ navigation }: RootTabScreenProps<PAGES.HOME>) => ({
           title: PAGES.HOME,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
