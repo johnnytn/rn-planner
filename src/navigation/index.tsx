@@ -14,18 +14,23 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import * as React from "react"
 import { ColorSchemeName, Pressable } from "react-native"
 
-import Colors from "../constants/Colors"
+import Colors from "../theme/Colors"
 import useColorScheme from "../hooks/useColorScheme"
-import ModalScreen from "../pages/ModalScreen"
-import NotFoundScreen from "../pages/NotFoundScreen"
-import TabOneScreen from "../pages/TabOneScreen"
-import TabTwoScreen from "../pages/TabTwoScreen"
+// todo: move
+import ModalScreen from "../screens/ModalScreen"
+import NotFoundScreen from "../screens/NotFoundScreen"
+import HomeView from "../screens/home"
+import TabTwoScreen from "../screens/home/TabTwoScreen"
+import DashboardView from "../screens/dashboard"
+
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
-} from "../../types"
+} from "../commons/types/navigation.types"
 import LinkingConfiguration from "./LinkingConfiguration"
+// import Colors from '../constants/Colors';
+import { PAGES } from "../commons/types/page.enums"
 
 export default function Navigation({
   colorScheme,
@@ -51,6 +56,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 function RootNavigator() {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="Dashboard"
+        component={DashboardView}
+        options={{ title: "dash!" }}
+      />
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
@@ -79,16 +89,16 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName={PAGES.HOME}
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One!!",
+        name={PAGES.HOME}
+        component={HomeView}
+        options={({ navigation }: RootTabScreenProps<PAGES.HOME>) => ({
+          title: PAGES.HOME,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
