@@ -1,7 +1,7 @@
-import { useNavigation } from "@react-navigation/native"
-import ProjectListView from "../projects/localComponents"
-import React from "react"
-import { useLayoutEffect } from "react"
+import { useNavigation } from "@react-navigation/native";
+
+import React from "react";
+import { useLayoutEffect } from "react";
 import {
   Button,
   Image,
@@ -10,13 +10,14 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native"
+} from "react-native";
 import {
   Bars3Icon,
   ChevronDownIcon,
   UserIcon,
-} from "react-native-heroicons/outline"
-import { PAGES } from "commons/types"
+} from "react-native-heroicons/outline";
+import { PAGES } from "commons/types";
+import ProjectListView from "./localComponents/ProjectList";
 
 // import { SparklesIcon as SparklesIconMini } from "react-native-heroicons/mini";
 
@@ -35,13 +36,13 @@ const ProjectsScreen = () => {
     },
   }) */
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
-    })
-  }, [])
+    });
+  }, []);
   // TODO: add internacionalization
 
   return (
@@ -84,7 +85,7 @@ const ProjectsScreen = () => {
         <ProjectListView />
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default ProjectsScreen
+export default ProjectsScreen;

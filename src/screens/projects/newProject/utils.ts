@@ -1,16 +1,23 @@
 import { REQUIRED_FIELD } from "commons/constants/form.message.constants";
+import { ICategory, IProject, ISubCategory } from "commons/types/project.types";
 import { z } from "zod";
 
-export const initialValues = {
+export interface NewProjectFormModel extends Omit<IProject, "id"> {}
+
+export const defaultSubCategory: ISubCategory = {
   name: "",
-  description: "",
 };
 
-export interface NewProjectFormModel {
-  name: string;
-  description: string;
-  [key: string]: unknown;
-}
+export const defaultCategory: ICategory = {
+  name: "",
+  subcategories: [defaultSubCategory],
+};
+
+export const initialValues: NewProjectFormModel = {
+  name: "",
+  description: "",
+  categories: [defaultCategory],
+};
 
 export const projectFormValidationSchema = z.object({
   name: z.string().min(1, { message: REQUIRED_FIELD }),
