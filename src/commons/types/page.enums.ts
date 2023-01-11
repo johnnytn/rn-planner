@@ -1,3 +1,6 @@
 export enum PAGES {
-  HOME = "Home",
+  PROJECTS = "Projects",
+  PROJECT = "Project",
+  NEW_PROJECT = "NewProject",
+  REPORT = "Report",
 }

@@ -4,7 +4,7 @@ import { PAGES } from "commons/types"
 // import ExpenseListView from "./Expenses"
 import { RootTabScreenProps } from "commons/types/navigation.types"
 
-const HomeScreen = ({ navigation }: RootTabScreenProps<PAGES.HOME>) => {
+const ProjectScreen = ({ navigation }: RootTabScreenProps<PAGES.PROJECT>) => {
   return (
     <View style={homeStyles.container}>
       {/*  <Text className="text-red-500">Tab One!</Text>
@@ -19,4 +19,4 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<PAGES.HOME>) => {
   )
 }
 
-export default HomeScreen
+export default ProjectScreen

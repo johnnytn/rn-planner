@@ -5,20 +5,24 @@ import {
 } from "@react-navigation/native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 
+export type RootTabParamList = {
+  Project: undefined
+  Report: undefined
+}
+
+// TODO: check
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined
-  Dashboard: undefined
+  Projects: NavigatorScreenParams<RootTabParamList> | undefined
+  NewProject: undefined
+  Project: undefined
+  Home: undefined
   Modal: undefined
   NotFound: undefined
 }
 
+/* Screen prop types */
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>
-
-export type RootTabParamList = {
-  Home: undefined
-  TabTwo: undefined
-}
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
   CompositeScreenProps<

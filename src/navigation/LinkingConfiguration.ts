@@ -5,27 +5,32 @@
  */
 
 import { LinkingOptions } from "@react-navigation/native"
+import { RootStackParamList } from "commons/types/navigation.types"
 import * as Linking from "expo-linking"
-
-import { RootStackParamList } from "../../types"
 
 const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.createURL("/")],
   config: {
     screens: {
-      Root: {
+      Projects: {
         screens: {
-          Home: {
+          Project: {
             screens: {
               // todo: review
-              HomeView: "one",
+              ProjectScreen: "one1",
             },
           },
-          TabTwo: {
+          Report: {
             screens: {
-              TabTwoScreen: "two",
+              ReportScreen: "two*",
             },
           },
+        },
+      },
+      NewProject: {
+        screens: {
+          // todo: review
+          NewProjectScreen: "one1",
         },
       },
       Modal: "modal",

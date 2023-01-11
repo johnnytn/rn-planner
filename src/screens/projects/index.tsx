@@ -1,8 +1,9 @@
 import { useNavigation } from "@react-navigation/native"
-import ProjectsView from "../dashboard/projects"
+import ProjectListView from "../projects/localComponents"
 import React from "react"
 import { useLayoutEffect } from "react"
 import {
+  Button,
   Image,
   SafeAreaView,
   ScrollView,
@@ -15,10 +16,11 @@ import {
   ChevronDownIcon,
   UserIcon,
 } from "react-native-heroicons/outline"
+import { PAGES } from "commons/types"
 
 // import { SparklesIcon as SparklesIconMini } from "react-native-heroicons/mini";
 
-const DashboardScreen = () => {
+const ProjectsScreen = () => {
   /* const styles = StyleSheet.create({
     container: {
       marginTop: 5,
@@ -74,11 +76,15 @@ const DashboardScreen = () => {
         /* horizontal */
         showsVerticalScrollIndicator={false}
       >
+        <Button
+          title="Create a new project"
+          onPress={() => navigation.navigate(PAGES.NEW_PROJECT)}
+        />
         {/*btn  Create a new project? */}
-        <ProjectsView />
+        <ProjectListView />
       </ScrollView>
     </SafeAreaView>
   )
 }
 
-export default DashboardScreen
+export default ProjectsScreen

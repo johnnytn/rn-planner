@@ -28,12 +28,12 @@ const projects: IProject[] = [
   },
 ]
 
-const ProjectsView = () => {
+const ProjectListView = () => {
   return (
     <View>
       {projects.length
         ? projects.map((project) => {
-            return <ProjectCardView project={project} />
+            return <ProjectCardView key={project.id} project={project} />
           })
         : null}
 
@@ -43,4 +43,4 @@ const ProjectsView = () => {
   )
 }
 
-export default ProjectsView
+export default ProjectListView
