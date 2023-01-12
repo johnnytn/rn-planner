@@ -50,7 +50,7 @@ const FormInputView = ({
         <ErrorMessage
           errors={errors}
           name={field}
-          as={<Text className="text-red-600" />}
+          as={<Text className="text-red-600 p-1" />}
         />
       </View>
     </View>

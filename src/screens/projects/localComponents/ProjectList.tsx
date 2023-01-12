@@ -12,11 +12,13 @@ const projects: IProject[] = [
     id: "1",
     name: "teste",
     updatedAt: new Date(),
+    categories: [],
   },
   {
     id: "2",
     name: "teste 2",
     updatedAt: new Date(),
+    categories: [],
   },
 ];
 
@@ -28,9 +30,6 @@ const ProjectListView = () => {
             return <ProjectCardView key={project.id} project={project} />;
           })
         : null}
-
-      {/* <ProjectCardView id="2" name="teste 2" />
-      <ProjectCardView id="3" name="bla bla bla bla" /> */}
     </View>
   );
 };

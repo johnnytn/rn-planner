@@ -4,6 +4,8 @@ import { Button, SafeAreaView, ScrollView } from "react-native";
 import FormInputView from "components/FormInput";
 import NewProjectController from "./controller";
 import NewProjectCategoriesView from "../localComponents/NewProjectCategories";
+import ButtonOpacityView from "components/ButtonOpacity";
+import Divider from "components/Divider";
 
 const NewProjectScreen = () => {
   const {
@@ -21,7 +23,7 @@ const NewProjectScreen = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View className="py-5">
+        <View className="py-5 px-1">
           <FormInputView
             field="name"
             name="Nome"
@@ -39,6 +41,8 @@ const NewProjectScreen = () => {
             numberOfLines={4}
           />
 
+          <Divider heightSize="1" />
+
           <NewProjectCategoriesView
             categories={categories}
             control={control}
@@ -50,14 +54,16 @@ const NewProjectScreen = () => {
           />
 
           <View className="p-2 ">
-            <Button
+            {/* <Button
               title="Salvar"
               onPress={handleSubmit(onSubmit)}
               color="purple"
+            /> */}
+            <ButtonOpacityView
+              bgColor="bg-purple-600"
+              text="Salvar"
+              action={handleSubmit(onSubmit)}
             />
-            {/* <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
-            <Text style={styles.text}>Salvar</Text>
-          </Pressable> */}
           </View>
         </View>
       </ScrollView>

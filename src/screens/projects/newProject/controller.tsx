@@ -1,12 +1,7 @@
-import { View } from "components/Themed";
-import { PAGES } from "commons/types";
-// import ExpenseListView from "./Expenses"
-import { RootTabScreenProps } from "commons/types/navigation.types";
-import { SafeAreaView, StyleSheet, Text, TextInput } from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useFieldArray, useForm } from "react-hook-form";
-import FormInputView from "components/FormInput";
+
 import {
   defaultCategory,
   defaultSubCategory,
@@ -14,13 +9,12 @@ import {
   NewProjectFormModel,
   projectFormValidationSchema,
 } from "./utils";
-import { useEffect } from "react";
 import { ICategory } from "commons/types/project.types";
 // TODO: add controller
 
 const NewProjectController = () => {
   const {
-    register,
+    // register,
     control,
     handleSubmit,
     watch,
@@ -31,11 +25,6 @@ const NewProjectController = () => {
     resolver: zodResolver(projectFormValidationSchema),
   });
 
-  const onSubmit = (data: NewProjectFormModel) => {
-    console.log({ data });
-    console.log("----------------");
-  };
-
   const {
     fields: categories,
     append,
@@ -45,6 +34,37 @@ const NewProjectController = () => {
     name: "categories",
     control,
   });
+  //  TODO: try it out
+  const categoriesWatcher = watch("categories", categories);
+
+  const onSubmit = (data: NewProjectFormModel) => {
+    const { categories, name, description } = getValues();
+
+    /*  console.log("{ formData }");
+    console.log({ name });
+    console.log({ description }); */
+    console.log("--------------------");
+    for (const category of categories) {
+      console.log({ category });
+      console.log(category.name);
+      // console.log(category.subcategories[0]);
+      for (const subcategory of category.subcategories) {
+        console.log({ subcategory });
+        console.log("--------------------category");
+      }
+      console.log("--------------------category");
+    }
+    // console.log(formData["subcategories"]);
+    //
+    /* {"categories": [{"0": [Object], "name": "Casa", "subcategories": [Array]}], "description": "", "name": "Hjj"} */
+    // console.log(getValues());
+    /* console.log("--------------------parameters");
+    // TTODO: here
+    console.log({ parameters });
+    console.log(parameters[0]);
+    console.log(parameters[0]["subcategories"]);
+    console.log("----------------parameters"); */
+  };
 
   const addCategory = () => {
     append(defaultCategory);
@@ -54,11 +74,10 @@ const NewProjectController = () => {
     remove(index);
   };
 
-  const addSubCategory = (catIndex: number, category: ICategory) => {
-    console.log("------------------add");
-    console.log({ catIndex });
-    console.log({ category });
-    console.log("------------------");
+  const addSubCategory = (catIndex: number /* , category: ICategory */) => {
+    const category = categoriesWatcher[catIndex];
+    console.log("add category-----------------------", category);
+    console.log({ categoriesWatcher });
     const updatedCategory = {
       ...category,
       subcategories: [...category.subcategories, defaultSubCategory],
@@ -66,16 +85,12 @@ const NewProjectController = () => {
     update(catIndex, updatedCategory);
   };
 
-  const removeSubCategory = (
-    catIndex: number,
-    category: ICategory,
-    subcatIndex: number
-  ) => {
-    console.log("------------------remove");
-    console.log({ catIndex });
-    console.log({ category });
-    console.log("------------------");
-
+  /* TODO: check remove between rows */
+  const removeSubCategory = (catIndex: number, subcatIndex: number) => {
+    const category = categoriesWatcher[catIndex];
+    console.log(
+      category.subcategories.filter((sub, index) => index !== subcatIndex)
+    );
     const updatedCategory = {
       ...category,
       subcategories: category.subcategories.filter(
@@ -85,21 +100,13 @@ const NewProjectController = () => {
     update(catIndex, updatedCategory);
   };
 
-  useEffect(() => {
-    /* register("name");
-    register("description"); */
-    console.log("--------------------getValues");
-    console.log(getValues());
-    console.log("--------------------getValues");
-  }, [register]);
-
-  useEffect(() => {
+  /* useEffect(() => {
     // this callback will run once on initial render and
     // then again whenever `fields` is updated
     console.log("categories----", categories);
     console.log(categories);
     console.log("categories----");
-  }, [categories]);
+  }, [categories]); */
 
   return {
     addCategory,
@@ -108,7 +115,7 @@ const NewProjectController = () => {
     removeSubCategory,
     handleSubmit,
     onSubmit,
-    register,
+    // register,
     watch,
     errors,
     control,

@@ -19,23 +19,7 @@ import {
 import { PAGES } from "commons/types";
 import ProjectListView from "./localComponents/ProjectList";
 
-// import { SparklesIcon as SparklesIconMini } from "react-native-heroicons/mini";
-
 const ProjectsScreen = () => {
-  /* const styles = StyleSheet.create({
-    container: {
-      marginTop: 5,
-    },
-    tinyLogo: {
-      width: 100,
-      height: 100,
-    },
-    logo: {
-      width: 66,
-      height: 58,
-    },
-  }) */
-
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
