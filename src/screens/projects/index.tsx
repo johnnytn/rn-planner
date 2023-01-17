@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useLayoutEffect } from "react";
 import {
   Button,
@@ -18,9 +18,13 @@ import {
 } from "react-native-heroicons/outline";
 import { PAGES } from "commons/types";
 import ProjectListView from "./localComponents/ProjectList";
+import ProjectService from "services/project.service";
+// import ProjectService from "../../services/project.service";
 
 const ProjectsScreen = () => {
   const navigation = useNavigation();
+
+  // const todoRef = firebase.firestore().collection("project");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,6 +32,20 @@ const ProjectsScreen = () => {
     });
   }, []);
   // TODO: add internacionalization
+
+  const fetchProjects = async () => {
+    const data = await ProjectService.getMany();
+    console.log(data);
+  };
+
+  const createProjects = async () => {
+    const data = await ProjectService.create();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   return (
     <SafeAreaView>
@@ -61,10 +79,19 @@ const ProjectsScreen = () => {
         /* horizontal */
         showsVerticalScrollIndicator={false}
       >
-        <Button
-          title="Create a new project"
-          onPress={() => navigation.navigate(PAGES.NEW_PROJECT)}
-        />
+        <View className="py-2">
+          <View className="py-1">
+            <Button
+              title="create project"
+              color="green"
+              onPress={createProjects}
+            />
+          </View>
+          <Button
+            title="Create a new project"
+            onPress={() => navigation.navigate(PAGES.NEW_PROJECT)}
+          />
+        </View>
         {/*btn  Create a new project? */}
         <ProjectListView />
       </ScrollView>

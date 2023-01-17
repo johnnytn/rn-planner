@@ -54,16 +54,6 @@ const NewProjectController = () => {
       }
       console.log("--------------------category");
     }
-    // console.log(formData["subcategories"]);
-    //
-    /* {"categories": [{"0": [Object], "name": "Casa", "subcategories": [Array]}], "description": "", "name": "Hjj"} */
-    // console.log(getValues());
-    /* console.log("--------------------parameters");
-    // TTODO: here
-    console.log({ parameters });
-    console.log(parameters[0]);
-    console.log(parameters[0]["subcategories"]);
-    console.log("----------------parameters"); */
   };
 
   const addCategory = () => {

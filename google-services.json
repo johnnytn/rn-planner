@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "372165654337",
+    "project_id": "rn-planner-82a84",
+    "storage_bucket": "rn-planner-82a84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372165654337:android:15a968e1f301f5482f93c0",
+        "android_client_info": {
+          "package_name": "com.company.rnplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372165654337-uoogu3f4nocmogqmg19vieorffppn4l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLnl8HcSAXClL3rNXCZu1vj52IuVwY15g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372165654337-uoogu3f4nocmogqmg19vieorffppn4l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
