@@ -1,4 +1,4 @@
-import { ICategory } from "commons/types/project.types";
+import { CategoryModel } from "commons/types/project.types";
 import FormInputWithButtonView from "components/FormInputWithButton";
 import { Text, View } from "components/Themed";
 import React from "react";
@@ -7,7 +7,7 @@ import { TouchableOpacity } from "react-native";
 import { PlusCircleIcon } from "react-native-heroicons/outline";
 
 interface NewSubCategoriesProps {
-  category: ICategory;
+  category: CategoryModel;
   categoryIndex: number;
   control: Control<any>;
   errors: Partial<FieldErrorsImpl>;
@@ -35,9 +35,8 @@ const NewSubCategoriesView = (props: NewSubCategoriesProps) => {
       </View>
       {category?.subcategories?.map((sub, i) => {
         return (
-          <View className="flex-row">
+          <View className="flex-row" key={i}>
             <FormInputWithButtonView
-              key={i}
               field={`categories.${categoryIndex}.subcategories.${i}.name`}
               name="Nome"
               placeholder="Qual vai ser a subcategoria?"

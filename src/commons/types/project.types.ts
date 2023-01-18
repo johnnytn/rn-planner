@@ -1,17 +1,17 @@
-export interface IProject {
+export interface ProjectModel {
   name: string;
   id: string;
   description?: string;
-  categories: ICategory[];
+  categories: CategoryModel[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface ISubCategory {
+export interface SubCategoryModel {
   name: string;
 }
 
-export interface ICategory {
+export interface CategoryModel {
   name: string;
-  subcategories: ISubCategory[];
+  subcategories: SubCategoryModel[];
 }

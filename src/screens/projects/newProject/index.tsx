@@ -12,6 +12,7 @@ const NewProjectScreen = () => {
     control,
     errors,
     categories,
+    isSending,
     handleSubmit,
     onSubmit,
     addCategory,
@@ -62,6 +63,7 @@ const NewProjectScreen = () => {
             <ButtonOpacityView
               bgColor="bg-purple-600"
               text="Salvar"
+              isLoading={isSending}
               action={handleSubmit(onSubmit)}
             />
           </View>

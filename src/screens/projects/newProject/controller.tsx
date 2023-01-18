@@ -9,12 +9,19 @@ import {
   NewProjectFormModel,
   projectFormValidationSchema,
 } from "./utils";
-import { ICategory } from "commons/types/project.types";
+import { CategoryModel } from "commons/types/project.types";
 import ProjectService from "services/project.service";
 import useToast from "hooks/useToast";
+import { PAGES } from "commons/types";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 // TODO: add controller
 
 const NewProjectController = () => {
+  const navigation = useNavigation();
+  const toastController = useToast();
+  const [isSending, setIsSending] = useState(false);
+
   const {
     // register,
     control,
@@ -37,36 +44,31 @@ const NewProjectController = () => {
     control,
   });
 
-  const toastController = useToast();
-
   //  TODO: try it out
   const categoriesWatcher = watch("categories", categories);
 
   const onSubmit = async (data: NewProjectFormModel) => {
-    /*  console.log("{ formData }");
-    console.log({ name });
-    console.log({ description }); */
-    /*  console.log("--------------------");
-    for (const category of categories) {
-      console.log({ category });
-      console.log(category.name);
-      // console.log(category.subcategories[0]);
-      for (const subcategory of category.subcategories) {
-        console.log({ subcategory });
-        console.log("--------------------category");
-      }
-      console.log("--------------------category");
-    }
- */
     try {
       const { categories, name, description } = getValues();
-      const payload = { categories, name, description };
-      const data = await ProjectService.create(payload);
-      // console.log("project template added");
-      toastController.open("Project Template created");
+      const payload = {
+        categories,
+        name,
+        description,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      setIsSending(true);
+      await ProjectService.create(payload);
+      toastController.open("Projeto criado com sucesso");
+      setTimeout(() => {
+        navigation.navigate(PAGES.PROJECTS);
+      }, 500);
     } catch (error) {
+      // console.log(error);
+      toastController.open("Erro ao criar projeto");
       throw error;
-      console.log(error);
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -104,14 +106,6 @@ const NewProjectController = () => {
     update(catIndex, updatedCategory);
   };
 
-  /* useEffect(() => {
-    // this callback will run once on initial render and
-    // then again whenever `fields` is updated
-    console.log("categories----", categories);
-    console.log(categories);
-    console.log("categories----");
-  }, [categories]); */
-
   return {
     addCategory,
     removeCategory,
@@ -124,6 +118,7 @@ const NewProjectController = () => {
     errors,
     control,
     categories,
+    isSending,
   };
 };
 

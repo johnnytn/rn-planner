@@ -1,4 +1,4 @@
-import { ICategory } from "commons/types/project.types";
+import { CategoryModel } from "commons/types/project.types";
 import ButtonOpacityView from "components/ButtonOpacity";
 import Divider from "components/Divider";
 import FormInputWithButtonView from "components/FormInputWithButton";
@@ -8,7 +8,7 @@ import { PlusCircleIcon } from "react-native-heroicons/outline";
 import NewSubCategoriesView from "./NewSubCategories";
 
 interface NewProjectCategoriesProp {
-  categories: ICategory[];
+  categories: CategoryModel[];
   control: Control<any>;
   errors: Partial<FieldErrorsImpl>;
   addCategory: () => void;
@@ -35,7 +35,7 @@ const NewProjectCategoriesView = ({
       <View>
         {categories.map((category, index) => {
           return (
-            <View>
+            <View key={index}>
               <View>
                 <View className="md:w-1/3">
                   <Text className="block text-gray-500 font-bold">
@@ -43,7 +43,6 @@ const NewProjectCategoriesView = ({
                   </Text>
                 </View>
                 <FormInputWithButtonView
-                  key={index}
                   field={`categories.${index}.name`}
                   name="Nome"
                   placeholder="Qual vai ser a categoria?"
