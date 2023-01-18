@@ -10,6 +10,8 @@ import {
   projectFormValidationSchema,
 } from "./utils";
 import { ICategory } from "commons/types/project.types";
+import ProjectService from "services/project.service";
+import useToast from "hooks/useToast";
 // TODO: add controller
 
 const NewProjectController = () => {
@@ -34,16 +36,17 @@ const NewProjectController = () => {
     name: "categories",
     control,
   });
+
+  const toastController = useToast();
+
   //  TODO: try it out
   const categoriesWatcher = watch("categories", categories);
 
-  const onSubmit = (data: NewProjectFormModel) => {
-    const { categories, name, description } = getValues();
-
+  const onSubmit = async (data: NewProjectFormModel) => {
     /*  console.log("{ formData }");
     console.log({ name });
     console.log({ description }); */
-    console.log("--------------------");
+    /*  console.log("--------------------");
     for (const category of categories) {
       console.log({ category });
       console.log(category.name);
@@ -53,6 +56,17 @@ const NewProjectController = () => {
         console.log("--------------------category");
       }
       console.log("--------------------category");
+    }
+ */
+    try {
+      const { categories, name, description } = getValues();
+      const payload = { categories, name, description };
+      const data = await ProjectService.create(payload);
+      // console.log("project template added");
+      toastController.open("Project Template created");
+    } catch (error) {
+      throw error;
+      console.log(error);
     }
   };
 

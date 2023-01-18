@@ -2,15 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import React, { useEffect } from "react";
 import { useLayoutEffect } from "react";
-import {
-  Button,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Button, SafeAreaView, ScrollView, Text, View } from "react-native";
 import {
   Bars3Icon,
   ChevronDownIcon,
@@ -19,12 +11,11 @@ import {
 import { PAGES } from "commons/types";
 import ProjectListView from "./localComponents/ProjectList";
 import ProjectService from "services/project.service";
-// import ProjectService from "../../services/project.service";
+import useToast from "hooks/useToast";
 
 const ProjectsScreen = () => {
   const navigation = useNavigation();
-
-  // const todoRef = firebase.firestore().collection("project");
+  const toastController = useToast();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -33,13 +24,16 @@ const ProjectsScreen = () => {
   }, []);
   // TODO: add internacionalization
 
-  const fetchProjects = async () => {
-    const data = await ProjectService.getMany();
-    console.log(data);
+  const openAlert = async () => {
+    toastController.open("All Your Base Are Belong To Us");
   };
 
-  const createProjects = async () => {
-    const data = await ProjectService.create();
+  const showToastWithGravityAndOffset = () => {
+    toastController.open("A wild toast appeared!");
+  };
+
+  const fetchProjects = async () => {
+    const data = await ProjectService.getMany();
     console.log(data);
   };
 
@@ -81,10 +75,13 @@ const ProjectsScreen = () => {
       >
         <View className="py-2">
           <View className="py-1">
+            <Button title="show" color="green" onPress={openAlert} />
+          </View>
+          <View className="p-1">
             <Button
-              title="create project"
+              title="show 2"
               color="green"
-              onPress={createProjects}
+              onPress={showToastWithGravityAndOffset}
             />
           </View>
           <Button

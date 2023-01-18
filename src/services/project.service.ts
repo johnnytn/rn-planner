@@ -32,12 +32,12 @@ export default class ProjectService {
     console.log("--------------------");
   }
 
-  static async create() {
+  static async create(payload: IProjectCreate) {
     try {
-      const payload = {
+      /* const payload = {
         name: "project 3",
         description: "desc",
-      };
+      }; */
 
       await addDoc(dbRef, payload);
       console.log("Document has been added successfully");
@@ -46,6 +46,8 @@ export default class ProjectService {
     }
   }
 }
+
+export interface IProjectCreate {}
 
 interface ProjectGetMany {
   page: number;
