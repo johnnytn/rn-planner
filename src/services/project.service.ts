@@ -6,12 +6,17 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
   doc,
   setDoc,
   addDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { ProjectModel } from "commons/types/project.types";
+import {
+  ProjectModel,
+  ProjectMonthlyDataModel,
+} from "commons/types/project.types";
+import { getProjectDataId } from "commons/utils/formatter";
 
 /*
 - Project
@@ -20,33 +25,38 @@ import { ProjectModel } from "commons/types/project.types";
 
 */
 const PROJECT_DB = "project";
-// const TEMPLATE_DB = "project_template";
+const PROJECT_DATA_DB = "project_data";
 // const q = query(collection(db, MODULE_NAME), where("capital", "==", true));
-const dbRef = collection(db, PROJECT_DB);
-// const templateDBRef = collection(db, TEMPLATE_DB);
+const projectDbRef = collection(db, PROJECT_DB);
+// const projectDataDbRef = collection(db, PROJECT_DATA_DB);
 
 export default class ProjectService {
   static async getMany(): Promise<ProjectModel[]> {
-    const querySnapshot = await getDocs(dbRef);
+    const querySnapshot = await getDocs(projectDbRef);
     const data: ProjectModel[] = [];
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data());
       if (doc.id) {
         const pro = {
           ...doc.data(),
           id: doc.id,
         } as ProjectModel;
         data.push(pro);
-        // console.log({ pro });
       }
     });
     return data;
   }
 
-  static async create(payload: IProjectCreate) {
+  static async get(id: string): Promise<ProjectModel | null> {
+    const docRef = doc(db, PROJECT_DB, id);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data() as ProjectModel;
+
+    return data;
+  }
+
+  static async create(payload: ProjectCreateRequest) {
     try {
-      await addDoc(dbRef, payload);
+      await addDoc(projectDbRef, payload);
       console.log("Document has been added successfully");
     } catch (error) {
       throw error;
@@ -61,13 +71,33 @@ export default class ProjectService {
       throw error;
     }
   }
+
+  static async saveMonthlyData(payload: ProjectMonthlyDataModel) {
+    try {
+      const id =
+        payload.id || getProjectDataId(payload.projectId, payload.currentMonth);
+      await setDoc(doc(db, PROJECT_DATA_DB, id), payload);
+      console.log("Data has been saved successfully");
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getMonthlyData(
+    id: string
+  ): Promise<ProjectMonthlyDataModel | null> {
+    const docRef = doc(db, PROJECT_DATA_DB, id);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data() as ProjectMonthlyDataModel;
+
+    return data;
+  }
 }
 
-export interface IProjectCreate {}
+export interface ProjectCreateRequest {}
 
-interface ProjectGetMany {
+/* interface ProjectGetMany {
   page: number;
   id?: number;
-  /* status?: string[];
-  storeName?: string; */
 }
+ */

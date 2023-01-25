@@ -2,19 +2,20 @@ import { ProjectModel } from "commons/types/project.types";
 import ButtonOpacityView from "components/ButtonOpacity";
 import AppleStyleSwipeableRow from "components/CustomSwipeable";
 import GmailStyleSwipeableRow from "components/CustomSwipeable2";
-import ProjectCardView from "components/ProjectCard";
+
 import React from "react";
 import { Animated, Button, StyleSheet, Text, View } from "react-native";
 import { FlatList, RectButton, Swipeable } from "react-native-gesture-handler";
+import ProjectCardView from "./ProjectCard";
 
 // import { SparklesIcon as SparklesIconMini } from "react-native-heroicons/mini";
 
 interface ProjectListProps {
   projects: ProjectModel[];
-  onDelete: (id: string) => void;
+  onClick: (project: ProjectModel) => void;
 }
 
-const ProjectListView = ({ projects, onDelete }: ProjectListProps) => {
+const ProjectListView = ({ projects, onClick }: ProjectListProps) => {
   /*   const renderRightView = (onDeleteHandler: any) => {
     return (
       <View>
@@ -124,6 +125,7 @@ const ProjectListView = ({ projects, onDelete }: ProjectListProps) => {
       keyExtractor={(_item, index) => `message ${index}`}
     />
   ); */
+  /* todo: add better way to remove  */
   {
     return (
       <View>
@@ -133,7 +135,7 @@ const ProjectListView = ({ projects, onDelete }: ProjectListProps) => {
                 <ProjectCardView
                   key={project.id}
                   project={project}
-                  onDelete={onDelete}
+                  onClick={onClick}
                 />
               );
             })

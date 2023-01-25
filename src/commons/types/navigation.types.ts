@@ -1,31 +1,36 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs"
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import {
   CompositeScreenProps,
   NavigatorScreenParams,
-} from "@react-navigation/native"
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
+} from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+interface ProjectScreen {
+  [key: string]: string;
+}
 
 export type RootTabParamList = {
-  Project: undefined
-  Report: undefined
-}
+  ProjectInfo: undefined /* ProjectScreen; */;
+  Report: undefined;
+  // Modal: undefined;
+};
 
 // TODO: check
 export type RootStackParamList = {
-  Projects: NavigatorScreenParams<RootTabParamList> | undefined
-  NewProject: undefined
-  Project: undefined
-  Home: undefined
-  Modal: undefined
-  NotFound: undefined
-}
+  Projects: NavigatorScreenParams<RootTabParamList> | undefined;
+  NewProject: undefined;
+  Project: undefined; // ProjectScreen;
+  Home: undefined;
+  Modal: any;
+  NotFound: undefined;
+};
 
 /* Screen prop types */
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, Screen>
+  NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
-  >
+  >;

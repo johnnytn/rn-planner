@@ -6,7 +6,8 @@ import { ArrowRightIcon, StarIcon } from "react-native-heroicons/outline";
 
 interface ProjectCardViewProps {
   project: ProjectModel;
-  onDelete: (id: string) => void;
+  // onDelete: (id: string) => void;
+  onClick: (project: ProjectModel) => void;
 }
 // TODO: move to utils
 const formatDate = (newDate: Date | undefined) => {
@@ -15,7 +16,7 @@ const formatDate = (newDate: Date | undefined) => {
   return newDate.toDateString();
 };
 
-const ProjectCardView = ({ project, onDelete }: ProjectCardViewProps) => {
+const ProjectCardView = ({ project, onClick }: ProjectCardViewProps) => {
   /* change for view? */
   return (
     <View className="p-1">
@@ -25,7 +26,7 @@ const ProjectCardView = ({ project, onDelete }: ProjectCardViewProps) => {
       > */}
       <TouchableOpacity
         className="bg-white mr-3 shadow rounded-md"
-        onPress={() => onDelete(project.id)}
+        onPress={() => onClick(project)}
       >
         <View className="px-3 pb-4">
           <Text className="font-bold text-lg pt-2 px-2">{project.name}!</Text>

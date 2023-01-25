@@ -3,18 +3,18 @@ import { Button, SafeAreaView, ScrollView, View } from "react-native";
 import { PAGES } from "commons/types";
 import ProjectListView from "./localComponents/ProjectList";
 
-import ProjectHeaderView from "./localComponents/ProjectHeader";
+import HomeHeaderView from "./localComponents/HomeHeader";
 
-import ProjectCardController from "./controller";
+import ProjectsController from "./controller";
 
 // TODO: add localization
 const ProjectsScreen = () => {
-  const { isLoading, projects, isSending, navigation, handleOnDelete } =
-    ProjectCardController();
+  const { isLoading, projects, isSending, navigation, handleOnClickProject } =
+    ProjectsController();
 
   return (
     <SafeAreaView>
-      <ProjectHeaderView />
+      <HomeHeaderView />
 
       {isLoading ? null : (
         <ScrollView
@@ -29,7 +29,7 @@ const ProjectsScreen = () => {
             />
           </View>
           {/*btn  Create a new project? */}
-          <ProjectListView projects={projects} onDelete={handleOnDelete} />
+          <ProjectListView projects={projects} onClick={handleOnClickProject} />
         </ScrollView>
       )}
     </SafeAreaView>

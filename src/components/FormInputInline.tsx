@@ -1,38 +1,38 @@
 import { View } from "components/Themed";
-import { Text, TextInput, TouchableOpacity } from "react-native";
+import { Text, TextInput } from "react-native";
 import { Control, Controller, FieldErrorsImpl } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { MinusCircleIcon } from "react-native-heroicons/outline";
 
-interface FormInputWithButtonProps {
+interface FormInputProps {
   control: Control<any>;
   errors: Partial<FieldErrorsImpl>;
   numberOfLines?: number;
   placeholder: string;
   field: string;
   name: string;
-  showAction?: boolean;
-  action?: () => void;
 }
 
-const FormInputWithButtonView = ({
-  action,
+const FormInputInlineView = ({
   control,
   field,
   name,
   errors,
   placeholder,
   numberOfLines = 1,
-  showAction = true,
-}: FormInputWithButtonProps) => {
+}: FormInputProps) => {
   return (
-    <View className="my-2">
-      <View className="flex-row justify-center">
+    <View className="flex flex-row m-2">
+      <View className="w-1/3">
+        <Text className="block text-gray-500 font-bold md:text-right mb-1">
+          {name}:
+        </Text>
+      </View>
+      <View className="w-2/3">
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              className="w-80 bg-gray-200 appearance-none
+              className="bg-gray-200 appearance-none
               border-2 border-gray-200 rounded
               py-2 px-4 text-gray-700 leading-tight
               focus:outline-none focus:bg-white focus:border-purple-500"
@@ -47,22 +47,14 @@ const FormInputWithButtonView = ({
           name={field}
         />
 
-        <TouchableOpacity
-          onPress={action}
-          disabled={!showAction}
-          className="ml-2 mt-3 h-5 w-5"
-        >
-          <MinusCircleIcon color={showAction ? "red" : "gray"} size={20} />
-        </TouchableOpacity>
-
         <ErrorMessage
           errors={errors}
           name={field}
-          as={<Text className="text-red-600 p-2" />}
+          as={<Text className="text-red-600 p-1" />}
         />
       </View>
     </View>
   );
 };
 
-export default FormInputWithButtonView;
+export default FormInputInlineView;

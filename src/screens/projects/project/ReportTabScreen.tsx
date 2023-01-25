@@ -2,7 +2,7 @@ import { View } from "components/Themed";
 import { StyleSheet } from "react-native";
 
 //TODO: change to PAGES.REPORT
-export default function TabTwoScreen() {
+export default function ReportTabScreen() {
   return <View style={styles.container}></View>;
 }
 

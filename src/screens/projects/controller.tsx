@@ -9,10 +9,13 @@ import useToast from "hooks/useToast";
 import ProjectService from "services/project.service";
 import { useNavigation } from "@react-navigation/native";
 import { ProjectModel } from "commons/types/project.types";
+import { PAGES } from "commons/types";
+import { useConfiguration } from "contexts/configuration";
 
-const ProjectCardController = () => {
+const ProjectsController = () => {
   const navigation = useNavigation();
   const toastController = useToast();
+  const { setActiveProject } = useConfiguration();
 
   const [projects, setProjects] = useState<ProjectModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,9 +54,18 @@ const ProjectCardController = () => {
       setIsSending(false);
     }
   };
+  const handleOnClickProject = async (project: ProjectModel) => {
+    // todo: set active pproject id
+    /* console.log("clicked ?", id);
+    console.log({ id }); */
+    setActiveProject(project);
+    // navigation.navigate(PAGES.PROJECT, { id });
+    navigation.navigate(PAGES.PROJECT);
+  };
 
   return {
     handleOnDelete,
+    handleOnClickProject,
     isLoading,
     isSending,
     projects,
@@ -61,4 +73,4 @@ const ProjectCardController = () => {
   };
 };
 
-export default ProjectCardController;
+export default ProjectsController;

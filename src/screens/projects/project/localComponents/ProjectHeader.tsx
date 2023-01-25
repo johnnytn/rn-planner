@@ -7,33 +7,39 @@ import {
   UserIcon,
 } from "react-native-heroicons/outline";
 
-// TODO: add localization
-const ProjectHeaderView = () => {
+interface ProjectHeaderProps {
+  name: string;
+  description: string | undefined;
+}
+
+const ProjectHeaderView = ({ name, description }: ProjectHeaderProps) => {
   const navigation = useNavigation();
 
   return (
     <View className="bg-white pt-10">
-      <View className="flex-row pb-3 items-center mx-4 space-x-2">
+      <View className="flex-row items-center mx-4 space-x-2">
         {/* TODO: local file way */}
         {/* <Image
           className="h-7 w-7 bg-gray-300 p-4 rounded-full"
           source={require("assets/images/favicon.png")}
         /> */}
 
-        <View className="bg-cyan-600 p-[2px] rounded-full  ">
+        {/* <View className="bg-cyan-600 p-[2px] rounded-full  ">
           <View className="bg-gray-300 p-2 rounded-full  ">
             <UserIcon size={25} color="#1b8977" />
           </View>
-        </View>
+        </View> */}
         <View className="flex-1">
-          <Text className="font-bold text-gray-400 text-sx">Oie!</Text>
-
           <Text className="font-bold text-lg">
-            Como vai você?
-            {/* TODO: center */}
-            <ChevronDownIcon size={15} color="#1b8977" />
+            {name}
+            {/* <ChevronDownIcon size={15} color="#1b8977" /> */}
+          </Text>
+          <Text className="text-gray-600">
+            {description}
+            {/* <ChevronDownIcon size={15} color="#1b8977" /> */}
           </Text>
         </View>
+        {/* todo: add edit + delete */}
         <Bars3Icon size={35} color="#000000" />
       </View>
     </View>
