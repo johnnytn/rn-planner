@@ -15,15 +15,18 @@ import { getFirestore, collection, query, where, getDocs } from "firebase/firest
 
 // firestore
 
+console.log('process.env.apiKey')
+console.log(process.env.FB_API_KEY)
+
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyDYrRdTsdyESB3tE4P6e-wTiB882-eAjkc",
-  authDomain: "rn-planner-82a84.firebaseapp.com",
-  projectId: "rn-planner-82a84",
-  storageBucket: "rn-planner-82a84.appspot.com",
-  messagingSenderId: "372165654337",
-  appId: "1:372165654337:web:8779528f2a54fdf92f93c0",
-  measurementId: "G-G3JJ60EMGM"
+  apiKey: process.env.FB_API_KEY,
+  authDomain: process.env.FB_AUTH_DOMAIN,
+  projectId: process.env.FB_PROJECT_ID,
+  storageBucket: process.env.FB_STORAGE_BUCKET,
+  messagingSenderId: process.env.FB_MSG_SENDER_ID,
+  appId: process.env.FB_APP_ID,
+  measurementId: process.env.FB_MEASUREMENT_ID
 };
 
 /* if (!firebase.app.length) {
