@@ -10,11 +10,35 @@ import ProjectCategoryView from "./localComponents/ProjectCategory";
 import ButtonOpacityView from "components/ButtonOpacity";
 
 const ProjectScreen = (props: RootTabScreenProps<PAGES.PROJECT_INFO>) => {
-  const { handleSubmit, onSubmit, project, errors, control, isSending } =
-    ProjectController();
+  const {
+    handleSubmit,
+    onSubmit,
+    project,
+    errors,
+    control,
+    isSending,
+    isLoading,
+  } = ProjectController();
 
+  // TODO create blank screen
   if (!project) {
-    return <Text className="text-red-500">Project not found</Text>;
+    return (
+      <SafeAreaView>
+        <View className="p5">
+          <Text className="text-red-500">Project not found</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (project && isLoading) {
+    return (
+      <SafeAreaView>
+        <View className="p5">
+          <Text className="text-red-500">Loading ....</Text>
+        </View>
+      </SafeAreaView>
+    );
   }
 
   return (

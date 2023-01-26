@@ -1,5 +1,5 @@
 import { View } from "components/Themed";
-import { Text, TextInput } from "react-native";
+import { KeyboardTypeOptions, Text, TextInput } from "react-native";
 import { Control, Controller, FieldErrorsImpl } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -7,7 +7,8 @@ interface FormInputProps {
   control: Control<any>;
   errors: Partial<FieldErrorsImpl>;
   numberOfLines?: number;
-  placeholder: string;
+  placeholder?: string;
+  keyboardType?: KeyboardTypeOptions;
   field: string;
   name: string;
 }
@@ -19,6 +20,7 @@ const FormInputInlineView = ({
   errors,
   placeholder,
   numberOfLines = 1,
+  keyboardType = "default",
 }: FormInputProps) => {
   return (
     <View className="flex flex-row m-2">
@@ -36,12 +38,14 @@ const FormInputInlineView = ({
               border-2 border-gray-200 rounded
               py-2 px-4 text-gray-700 leading-tight
               focus:outline-none focus:bg-white focus:border-purple-500"
-              placeholder={placeholder}
+              placeholder={placeholder || `${value}`}
+              /* TODO: check how to show the value without using placeholder */
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
               multiline={numberOfLines > 1}
               numberOfLines={numberOfLines}
+              keyboardType={keyboardType}
             />
           )}
           name={field}

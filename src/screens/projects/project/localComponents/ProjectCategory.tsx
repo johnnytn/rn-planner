@@ -22,14 +22,14 @@ const ProjectCategoryView = ({
         {category.subcategories.map((sub, index) => {
           return (
             <View key={index} className="pt-1 pl-2 flex flex-row space-x-2">
-              {/* <Text className="text-gray-800">{sub.name}:</Text> */}
-              {/* <Text className="">add input heree</Text> */}
+              {/* TODO: add money mask */}
               <FormInputInlineView
                 field={`${category.name}.${sub.name}`}
                 name={sub.name}
-                placeholder="0"
+                /* placeholder="0" */
                 control={control}
                 errors={errors}
+                keyboardType="numeric"
               />
             </View>
           );

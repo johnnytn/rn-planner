@@ -25,7 +25,9 @@ const ProjectController = () => {
   const toastController = useToast();
   const { activeProject, setActiveProject } = useConfiguration();
 
-  const [project, setProject] = useState<ProjectModel>();
+  const [project, setProject] = useState<ProjectModel | undefined>(
+    activeProject
+  );
   const [projectData, setProjectData] = useState<ProjectMonthlyDataModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
@@ -37,22 +39,13 @@ const ProjectController = () => {
     watch,
     getValues,
     formState: { errors },
+    setValue,
   } = useForm(/* {
     defaultValues: initialValues,
     resolver: zodResolver(projectFormValidationSchema),
   } */);
 
-  /*  const {
-    fields: categories,
-    append,
-    update,
-    remove,
-  } = useFieldArray({
-    name: "categories",
-    control,
-  }); */
-
-  const fetchProject = useCallback(async () => {
+  const fetchProjectData = useCallback(async () => {
     if (activeProject) {
       // todo: fetch values
       const currentMonth = new Date().getMonth();
@@ -60,10 +53,22 @@ const ProjectController = () => {
       const data = await ProjectService.getMonthlyData(id);
       if (data) {
         console.log({ data });
-        for (const cat of data.categories) {
-          console.log(cat.name);
-          console.log("--------------------");
-        }
+
+        data.categories.forEach((category) => {
+          category.subcategories.forEach((subcategories) => {
+            // field={`${category.name}.${sub.name}`}
+            /* console.log("--------------------here?");
+            console.log(
+              `${category.name}.${subcategories.name}`,
+              subcategories.value
+            ); */
+            setValue(
+              `${category.name}.${subcategories.name}`,
+              subcategories.value
+            );
+          });
+        });
+
         setProjectData(data);
       } else {
         setProjectData({
@@ -72,10 +77,7 @@ const ProjectController = () => {
           projectId: activeProject?.id,
         });
       }
-      setProject(activeProject);
-
       setIsLoading(false);
-      // setProjects(data);
     }
   }, [activeProject]);
 
@@ -108,7 +110,7 @@ const ProjectController = () => {
       /* TODO: check updatedAt      }; */
       setIsSending(true);
       await ProjectService.saveMonthlyData(payload);
-      toastController.open("Projeto criado com sucesso");
+      toastController.open("Projeto atualizado com sucesso");
       setTimeout(() => {
         navigation.navigate(PAGES.PROJECTS);
       }, 500);
@@ -129,7 +131,7 @@ const ProjectController = () => {
 
   useEffect(() => {
     if (isLoading && activeProject) {
-      fetchProject();
+      fetchProjectData();
     }
   }, [isLoading, activeProject]);
 
