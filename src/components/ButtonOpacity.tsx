@@ -1,6 +1,11 @@
 import React from "react";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
-import { PlusCircleIcon } from "react-native-heroicons/outline";
+import {
+  ChulaNarakText,
+  MonoText,
+  TitilliumText,
+  SimonettaText,
+} from "components/StyledText";
 
 interface ButtonOpacityProps {
   action: () => void;
@@ -28,7 +33,9 @@ const ButtonOpacityView = ({
         <ActivityIndicator />
       ) : (
         <View className={`flex flex-row space-x-3 `}>
-          <Text className="text-white font-semibold text-base">{text}</Text>
+          <TitilliumText className="text-white font-semibold text-base">
+            {text}
+          </TitilliumText>
           {icon}
         </View>
       )}

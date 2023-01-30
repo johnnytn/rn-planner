@@ -1,4 +1,5 @@
 import { ProjectModel } from "commons/types/project.types";
+import { formatDate } from "commons/utils/formatter";
 import React from "react";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
@@ -10,13 +11,14 @@ interface ProjectCardViewProps {
   onClick: (project: ProjectModel) => void;
 }
 // TODO: move to utils
-const formatDate = (newDate: Date | undefined) => {
+// {"newDate": {"nanoseconds": 925000000, "seconds": 1675089250}}
+/* const formatDate = (newDate: Date | undefined) => {
   if (!newDate) return "";
   console.log({ newDate });
   //ADD FORMATTER
-  return newDate; // newDate.toDateString();
+  return new Date(newDate).toDateString(); // newDate.toDateString();
 };
-
+ */
 const ProjectCardView = ({ project, onClick }: ProjectCardViewProps) => {
   /* change for view? */
   return (
@@ -36,7 +38,6 @@ const ProjectCardView = ({ project, onClick }: ProjectCardViewProps) => {
             <View className="flex-row space-x-2 px-2">
               <Text className="text-gray-500 text-sm">Ultima atualização</Text>
               <Text className="text-gray-700 text-sm">
-                {`${project.updatedAt}`}
                 {`${formatDate(project.updatedAt)}`}
               </Text>
             </View>
@@ -46,7 +47,6 @@ const ProjectCardView = ({ project, onClick }: ProjectCardViewProps) => {
           </View>
         </View>
       </TouchableOpacity>
-      {/* </RectButton> */}
     </View>
   );
 };

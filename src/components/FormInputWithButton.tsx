@@ -26,39 +26,41 @@ const FormInputWithButtonView = ({
   showAction = true,
 }: FormInputWithButtonProps) => {
   return (
-    <View className="my-2">
-      <View className="flex-row justify-center">
-        <Controller
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              className="w-80 bg-gray-200 appearance-none
+    <View className="bg-gray-800 my-2">
+      <View className=" bg-transparent">
+        <View className="flex-row justify-center bg-transparent">
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                className="w-80 bg-gray-200 appearance-none
               border-2 border-gray-200 rounded
               py-2 px-4 text-gray-700 leading-tight
               focus:outline-none focus:bg-white focus:border-purple-500"
-              placeholder={placeholder}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              multiline={numberOfLines > 1}
-              numberOfLines={numberOfLines}
-            />
-          )}
-          name={field}
-        />
+                placeholder={placeholder}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                multiline={numberOfLines > 1}
+                numberOfLines={numberOfLines}
+              />
+            )}
+            name={field}
+          />
 
-        <TouchableOpacity
-          onPress={action}
-          disabled={!showAction}
-          className="ml-2 mt-3 h-5 w-5"
-        >
-          <MinusCircleIcon color={showAction ? "red" : "gray"} size={20} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={action}
+            disabled={!showAction}
+            className="ml-2 mt-3 h-5 w-5"
+          >
+            <MinusCircleIcon color={showAction ? "red" : "gray"} size={20} />
+          </TouchableOpacity>
+        </View>
 
         <ErrorMessage
           errors={errors}
           name={field}
-          as={<Text className="text-red-600 p-2" />}
+          as={<Text className="text-red-500 p-2" />}
         />
       </View>
     </View>

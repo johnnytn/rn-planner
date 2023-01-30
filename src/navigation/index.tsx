@@ -27,6 +27,8 @@ import NewProjectScreen from "screens/projects/newProject";
 import UpdateProjectScreen from "screens/projects/updateProject";
 import HomeHeaderView from "screens/projects/localComponents/HomeHeader";
 
+import BaseHeaderView from "components/Headers/BaseHeader";
+
 export default function Navigation({
   colorScheme,
 }: {
@@ -65,12 +67,20 @@ function RootNavigator() {
       <Stack.Screen
         name={PAGES.NEW_PROJECT}
         component={NewProjectScreen}
-        options={{ title: "Bora criar um projeto?" }}
+        options={{
+          header(props) {
+            return <BaseHeaderView text="Bora criar um projeto?" />;
+          },
+        }}
       />
       <Stack.Screen
         name={PAGES.UPDATE_PROJECT}
         component={UpdateProjectScreen}
-        options={{ title: "Bora atualizar?" }}
+        options={{
+          header(props) {
+            return <BaseHeaderView text="Bora atualizar?" />;
+          },
+        }}
       />
       <Stack.Screen
         name={PAGES.PROJECT_INFO}

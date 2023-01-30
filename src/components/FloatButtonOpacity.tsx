@@ -20,7 +20,7 @@ const FloatButtonOpacityView = ({
       disabled={isLoading}
       activeOpacity={0.6}
       onPress={action}
-      className={`fixed z-90 -bottom-10 -right-3/4 ${color} w-20 h-20
+      className={`fixed z-90 bottom-2 -right-3/4 ${color} w-20 h-20
           rounded-full drop-shadow-lg flex justify-center items-center`}
     >
       <View className="">{icon}</View>

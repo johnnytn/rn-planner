@@ -12,6 +12,8 @@ import ProjectListView from "./localComponents/ProjectList";
 import HomeHeaderView from "./localComponents/HomeHeader";
 
 import ProjectsController from "./controller";
+import ButtonOpacityView from "components/ButtonOpacity";
+import { BaseSafeAreaView } from "components/BaseSafeArea";
 
 // TODO: add localization
 const ProjectsScreen = () => {
@@ -25,7 +27,7 @@ const ProjectsScreen = () => {
   } = ProjectsController();
 
   return (
-    <SafeAreaView>
+    <BaseSafeAreaView>
       {/* <HomeHeaderView /> */}
 
       {isLoading ? null : (
@@ -38,16 +40,22 @@ const ProjectsScreen = () => {
           }
         >
           <View className="py-2">
-            <Button
-              title="Create a new project"
-              onPress={() => navigation.navigate(PAGES.NEW_PROJECT)}
+            <ButtonOpacityView
+              action={() => navigation.navigate(PAGES.NEW_PROJECT)}
+              text="Novo projeto"
+              bgColor="bg-orange-400"
             />
+            {/* <Button
+              title="Novo projeto"
+              onPress={() => navigation.navigate(PAGES.NEW_PROJECT)}
+              color="orange"
+            /> */}
           </View>
           {/*btn  Create a new project? */}
           <ProjectListView projects={projects} onClick={handleOnClickProject} />
         </ScrollView>
       )}
-    </SafeAreaView>
+    </BaseSafeAreaView>
   );
 };
 

@@ -1,10 +1,15 @@
+export interface FirestoreTimestamp {
+  nanoseconds: number;
+  seconds: number;
+}
+
 export interface ProjectModel {
   name: string;
   id: string;
   description?: string;
   categories: CategoryModel[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: FirestoreTimestamp;
+  updatedAt?: FirestoreTimestamp | undefined;
 }
 
 export interface ProjectMonthlyDataModel {

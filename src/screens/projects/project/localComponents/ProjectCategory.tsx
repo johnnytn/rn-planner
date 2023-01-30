@@ -1,5 +1,6 @@
 import { CategoryModel } from "commons/types/project.types";
 import FormInputInlineView from "components/FormInputInline";
+import { ChulaNarakText, TitilliumText } from "components/StyledText";
 
 import { Control, FieldErrorsImpl } from "react-hook-form";
 import { Text, View } from "react-native";
@@ -18,7 +19,7 @@ const ProjectCategoryView = ({
   return (
     <View className="py-2">
       <View className="p-4 bg-white border-solid rounded-md shadow-sm">
-        <Text className="font-bold">{category.name}</Text>
+        <TitilliumText className="">{category.name}</TitilliumText>
         {category.subcategories.map((sub, index) => {
           return (
             <View key={index} className="pt-1 pl-2 flex flex-row space-x-2">

@@ -9,6 +9,9 @@ import ProjectCategoryView from "./localComponents/ProjectCategory";
 import ButtonOpacityView from "components/ButtonOpacity";
 import { CheckBadgeIcon, CheckIcon } from "react-native-heroicons/outline";
 import FloatButtonOpacityView from "components/FloatButtonOpacity";
+import { BaseSafeAreaView } from "components/BaseSafeArea";
+import { ChulaNarakText, TitilliumText } from "components/StyledText";
+import BlankProjectScreen from "components/BlankScreen";
 
 const ProjectScreen = (/* props: RootTabScreenProps<PAGES.PROJECT_INFO> */) => {
   const {
@@ -25,27 +28,15 @@ const ProjectScreen = (/* props: RootTabScreenProps<PAGES.PROJECT_INFO> */) => {
 
   // TODO create blank screen
   if (!project) {
-    return (
-      <SafeAreaView>
-        <View className="p5">
-          <Text className="text-red-500">Project not found</Text>
-        </View>
-      </SafeAreaView>
-    );
+    return <BlankProjectScreen text="Project not found" />;
   }
 
   if (project && isLoading) {
-    return (
-      <SafeAreaView>
-        <View className="p5">
-          <Text className="text-red-500">Loading ....</Text>
-        </View>
-      </SafeAreaView>
-    );
+    return <BlankProjectScreen text="  Loading ...." />;
   }
   /* TODO: ADD formatter */
   return (
-    <SafeAreaView>
+    <BaseSafeAreaView>
       <ProjectHeaderView
         name={project?.name}
         description={project?.description}
@@ -53,15 +44,14 @@ const ProjectScreen = (/* props: RootTabScreenProps<PAGES.PROJECT_INFO> */) => {
       />
 
       <ScrollView>
-        <View className="p-3 flex-row space-x-2 bg-slate-300">
-          <Text className=" font-bold">Total:</Text>
-          <Text className="font-semibold text-red-600">{projectTotal}</Text>
+        <View className="p-3 flex-row space-x-2 bg-white shadow">
+          <ChulaNarakText className="text-lg">Total:</ChulaNarakText>
+          <ChulaNarakText className="text-lg text-red-600">
+            {projectTotal}
+          </ChulaNarakText>
         </View>
+        {/*  */}
         <View className="px-3 py-2">
-          {/* <Text className="text-red-500">{project?.name}</Text> */}
-          {/*  <View className="py-2  ">
-          <Text className="text-gray-500">{project?.description}</Text>
-        </View> */}
           <View className="px-3 py-2">
             {project?.categories.map((cat, index) => {
               return (
@@ -85,12 +75,12 @@ const ProjectScreen = (/* props: RootTabScreenProps<PAGES.PROJECT_INFO> */) => {
         </View>
       </ScrollView>
       <FloatButtonOpacityView
-        bgColor="bg-green-600"
+        bgColor="bg-orange-400"
         isLoading={isSending}
         action={handleSubmit(onSubmit)}
         icon={<CheckIcon size={30} color="white" />}
       />
-    </SafeAreaView>
+    </BaseSafeAreaView>
   );
 };
 

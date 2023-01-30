@@ -2,6 +2,7 @@ import { CategoryModel } from "commons/types/project.types";
 import ButtonOpacityView from "components/ButtonOpacity";
 import Divider from "components/Divider";
 import FormInputWithButtonView from "components/FormInputWithButton";
+import { ChulaNarakText } from "components/StyledText";
 import { Control, FieldErrorsImpl } from "react-hook-form";
 import { View, Text, TouchableOpacity } from "react-native";
 import { PlusCircleIcon } from "react-native-heroicons/outline";
@@ -38,9 +39,9 @@ const NewProjectCategoriesView = ({
             <View key={index}>
               <View>
                 <View className="md:w-1/3">
-                  <Text className="block text-gray-500 font-bold">
+                  <ChulaNarakText className="text-white text-lg">
                     Nova Categoria
-                  </Text>
+                  </ChulaNarakText>
                 </View>
                 <FormInputWithButtonView
                   field={`categories.${index}.name`}
@@ -71,7 +72,7 @@ const NewProjectCategoriesView = ({
         <ButtonOpacityView
           text="Nova categoria"
           action={addCategory}
-          icon={<PlusCircleIcon color="white" size={20} />}
+          icon={<PlusCircleIcon color="white" size={25} />}
         />
       </View>
     </View>

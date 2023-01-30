@@ -2,6 +2,7 @@ import { View } from "components/Themed";
 import { KeyboardTypeOptions, Text, TextInput } from "react-native";
 import { Control, Controller, FieldErrorsImpl } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { ChulaNarakText } from "./StyledText";
 
 interface FormInputProps {
   control: Control<any>;
@@ -25,9 +26,9 @@ const FormInputInlineView = ({
   return (
     <View className="flex flex-row m-2">
       <View className="w-1/3">
-        <Text className="block text-gray-500 font-bold md:text-right mb-1">
+        <ChulaNarakText className="text-gray-500 text-lg mb-1">
           {name}:
-        </Text>
+        </ChulaNarakText>
       </View>
       <View className="w-2/3">
         <Controller
@@ -54,7 +55,7 @@ const FormInputInlineView = ({
         <ErrorMessage
           errors={errors}
           name={field}
-          as={<Text className="text-red-600 p-1" />}
+          as={<Text className="text-red-500 p-1" />}
         />
       </View>
     </View>

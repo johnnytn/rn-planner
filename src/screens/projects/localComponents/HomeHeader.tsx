@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { ChulaNarakText, MonoText, TitilliumText } from "components/StyledText";
 
 import { Text, View } from "react-native";
 import {
@@ -12,7 +13,7 @@ const HomeHeaderView = () => {
   const navigation = useNavigation();
 
   return (
-    <View className="bg-white pt-10">
+    <View className="bg-primary pt-7">
       <View className="flex-row pb-3 items-center mx-4 space-x-2">
         {/* TODO: local file way */}
         {/* <Image
@@ -20,21 +21,23 @@ const HomeHeaderView = () => {
           source={require("assets/images/favicon.png")}
         /> */}
 
-        <View className="bg-cyan-600 p-[2px] rounded-full  ">
-          <View className="bg-gray-300 p-2 rounded-full  ">
-            <UserIcon size={25} color="#1b8977" />
+        <View className="bg-purple-500 p-[2px] rounded-full  ">
+          <View className="bg-gray-100 p-2 rounded-full  ">
+            <UserIcon size={25} color="purple" />
           </View>
         </View>
         <View className="flex-1">
-          <Text className="font-bold text-gray-400 text-sx">Oie!</Text>
+          <ChulaNarakText className="text-gray-300 text-base">
+            Oie!
+          </ChulaNarakText>
 
-          <Text className="font-bold text-lg">
+          <TitilliumText className="text-lg text-slate-100">
             Como vai você?
             {/* TODO: center */}
-            <ChevronDownIcon size={15} color="#1b8977" />
-          </Text>
+            {/* <ChevronDownIcon size={15} color="#1b8977" /> */}
+          </TitilliumText>
         </View>
-        <Bars3Icon size={35} color="#000000" />
+        <Bars3Icon size={35} color="white" />
       </View>
     </View>
   );

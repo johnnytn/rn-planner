@@ -6,6 +6,7 @@ import UpdateProjectController from "./controller";
 import NewProjectCategoriesView from "../localComponents/NewProjectCategories";
 import ButtonOpacityView from "components/ButtonOpacity";
 import Divider from "components/Divider";
+import { BaseSafeAreaView } from "components/BaseSafeArea";
 
 const UpdateProjectScreen = () => {
   const {
@@ -22,9 +23,9 @@ const UpdateProjectScreen = () => {
   } = UpdateProjectController();
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View className="py-5 px-1">
+    <BaseSafeAreaView className="">
+      <ScrollView className="bg-transparent">
+        <View className="pb-5 px-1 bg-transparent">
           <FormInputView
             field="name"
             name="Nome"
@@ -53,23 +54,22 @@ const UpdateProjectScreen = () => {
             addSubCategory={addSubCategory}
             removeSubCategory={removeSubCategory}
           />
-
-          <View className="p-2 ">
-            {/* <Button
+        </View>
+      </ScrollView>
+      <View className="p-2 bg-transparent">
+        {/* <Button
               title="Salvar"
               onPress={handleSubmit(onSubmit)}
               color="purple"
             /> */}
-            <ButtonOpacityView
-              bgColor="bg-purple-600"
-              text="Salvar"
-              isLoading={isSending}
-              action={handleSubmit(onSubmit)}
-            />
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        <ButtonOpacityView
+          bgColor="bg-purple-600"
+          text="Salvar"
+          isLoading={isSending}
+          action={handleSubmit(onSubmit)}
+        />
+      </View>
+    </BaseSafeAreaView>
   );
 };
 
