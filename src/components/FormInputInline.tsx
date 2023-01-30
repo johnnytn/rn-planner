@@ -39,7 +39,7 @@ const FormInputInlineView = ({
               border-2 border-gray-200 rounded
               py-2 px-4 text-gray-700 leading-tight
               focus:outline-none focus:bg-white focus:border-purple-500"
-              placeholder={placeholder || `${value}`}
+              placeholder={placeholder}
               /* TODO: check how to show the value without using placeholder */
               onChangeText={onChange}
               onBlur={onBlur}

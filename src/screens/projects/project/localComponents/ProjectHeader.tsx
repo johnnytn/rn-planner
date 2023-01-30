@@ -3,6 +3,7 @@ import { ChulaNarakText, TitilliumText } from "components/StyledText";
 
 import { Text, View } from "react-native";
 import {
+  ArrowLeftIcon,
   Bars3Icon,
   ChevronDownIcon,
   PencilIcon,
@@ -23,8 +24,13 @@ const ProjectHeaderView = ({
   const navigation = useNavigation();
 
   return (
-    <View className="bg-primary pt-10">
-      <View className="flex-row items-center mx-4 space-x-2">
+    <View className="bg-primary pt-7">
+      <View className="flex-row items-center mx-4 space-x-6">
+        <ArrowLeftIcon
+          size={25}
+          color="white"
+          onPress={() => navigation.goBack()}
+        />
         <View className="flex-1 ">
           <TitilliumText className="text-lg text-white">{name}</TitilliumText>
           <ChulaNarakText className="text-slate-100">

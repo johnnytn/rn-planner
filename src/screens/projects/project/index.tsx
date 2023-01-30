@@ -31,7 +31,7 @@ const ProjectScreen = (/* props: RootTabScreenProps<PAGES.PROJECT_INFO> */) => {
     return <BlankProjectScreen text="Project not found" />;
   }
 
-  if (project && isLoading) {
+  if (isLoading) {
     return <BlankProjectScreen text="  Loading ...." />;
   }
   /* TODO: ADD formatter */

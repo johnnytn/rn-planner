@@ -11,14 +11,13 @@ import ProjectService from "services/project.service";
 import { useNavigation } from "@react-navigation/native";
 import {
   MonthlyDataCategories,
-  ProjectDataFormModel,
   ProjectModel,
   ProjectMonthlyDataModel,
 } from "commons/types/project.types";
 import { PAGES } from "commons/types";
 import { useConfiguration } from "contexts/configuration";
-import { useFieldArray, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
 import { getProjectDataId } from "commons/utils/formatter";
 
 const ProjectController = () => {
@@ -39,7 +38,7 @@ const ProjectController = () => {
     getValues,
     formState: { errors },
     setValue,
-  } = useForm();
+  } = useForm(/* { defaultValues: getInitialValues(activeProject) } */);
 
   const projectWatcher = watch();
 
@@ -62,6 +61,8 @@ const ProjectController = () => {
     }, 0);
   }, [projectWatcher]);
 
+  console.log(getValues());
+
   const fetchProjectData = useCallback(async () => {
     if (activeProject) {
       const currentMonth = new Date().getMonth();
@@ -70,24 +71,26 @@ const ProjectController = () => {
       if (data) {
         // console.log({ data });
 
+        //  TODO: check number values for inputs
         data.categories.forEach((category) => {
           category.subcategories.forEach((subcategories) => {
             setValue(
               `${category.name}.${subcategories.name}`,
-              subcategories.value
+              `${subcategories.value}`
             );
           });
         });
 
         setProjectData(data);
+        setIsLoading(false);
       } else {
         setProjectData({
           categories: activeProject.categories as MonthlyDataCategories[],
           currentMonth,
           projectId: activeProject?.id,
         });
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
   }, [activeProject]);
 
@@ -152,6 +155,19 @@ const ProjectController = () => {
       fetchProjectData();
     }
   }, [isLoading, activeProject]);
+
+  /* useEffect(() => {
+    if (isLoading && projectData) {
+      projectData.categories.forEach((category) => {
+        category.subcategories.forEach((subcategories) => {
+          setValue(
+            `${category.name}.${subcategories.name}`,
+            subcategories.value
+          );
+        });
+      });
+    }
+  }, [projectData]); */
 
   return {
     handleSubmit,
