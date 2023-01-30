@@ -27,17 +27,11 @@ const ProjectsController = () => {
     setProjects(data);
   }, []);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
+  const handleRefresh = React.useCallback(() => {
+    console.log("refreshing??");
+    setIsLoading(true);
+    fetchProjects();
   }, []);
-
-  useEffect(() => {
-    if (isLoading) {
-      fetchProjects();
-    }
-  }, [isLoading]);
 
   const handleOnDelete = async (id: string) => {
     try {
@@ -60,12 +54,19 @@ const ProjectsController = () => {
     console.log({ id }); */
     setActiveProject(project);
     // navigation.navigate(PAGES.PROJECT, { id });
-    navigation.navigate(PAGES.PROJECT);
+    navigation.navigate(PAGES.PROJECT_INFO);
   };
+
+  useEffect(() => {
+    if (isLoading) {
+      fetchProjects();
+    }
+  }, [isLoading]);
 
   return {
     handleOnDelete,
     handleOnClickProject,
+    handleRefresh,
     isLoading,
     isSending,
     projects,

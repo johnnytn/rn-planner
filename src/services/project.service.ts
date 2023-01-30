@@ -10,6 +10,7 @@ import {
   doc,
   setDoc,
   addDoc,
+  updateDoc,
   deleteDoc,
 } from "firebase/firestore";
 import {
@@ -62,6 +63,14 @@ export default class ProjectService {
       throw error;
     }
   }
+  static async update(id: string, payload: ProjectUpdateRequest) {
+    try {
+      await updateDoc(doc(db, PROJECT_DB, id), payload);
+      console.log("Document has been updated successfully");
+    } catch (error) {
+      throw error;
+    }
+  }
   static async delete(id: string) {
     try {
       // const docRef = doc(db, PROJECT_DB, id);
@@ -95,9 +104,4 @@ export default class ProjectService {
 }
 
 export interface ProjectCreateRequest {}
-
-/* interface ProjectGetMany {
-  page: number;
-  id?: number;
-}
- */
+interface ProjectUpdateRequest {}

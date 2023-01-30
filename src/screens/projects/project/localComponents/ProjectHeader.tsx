@@ -4,15 +4,21 @@ import { Text, View } from "react-native";
 import {
   Bars3Icon,
   ChevronDownIcon,
+  PencilIcon,
   UserIcon,
 } from "react-native-heroicons/outline";
 
 interface ProjectHeaderProps {
   name: string;
   description: string | undefined;
+  onClickUpdate: () => void;
 }
 
-const ProjectHeaderView = ({ name, description }: ProjectHeaderProps) => {
+const ProjectHeaderView = ({
+  name,
+  description,
+  onClickUpdate,
+}: ProjectHeaderProps) => {
   const navigation = useNavigation();
 
   return (
@@ -40,7 +46,8 @@ const ProjectHeaderView = ({ name, description }: ProjectHeaderProps) => {
           </Text>
         </View>
         {/* todo: add edit + delete */}
-        <Bars3Icon size={35} color="#000000" />
+        <PencilIcon size={25} color="purple" onPress={onClickUpdate} />
+        {/* <Bars3Icon size={35} color="#000000" /> */}
       </View>
     </View>
   );

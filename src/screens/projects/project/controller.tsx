@@ -1,7 +1,8 @@
-import React, {
+import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -23,11 +24,9 @@ import { getProjectDataId } from "commons/utils/formatter";
 const ProjectController = () => {
   const navigation = useNavigation();
   const toastController = useToast();
-  const { activeProject, setActiveProject } = useConfiguration();
+  const { activeProject } = useConfiguration();
 
-  const [project, setProject] = useState<ProjectModel | undefined>(
-    activeProject
-  );
+  const [project] = useState<ProjectModel | undefined>(activeProject);
   const [projectData, setProjectData] = useState<ProjectMonthlyDataModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
@@ -40,28 +39,39 @@ const ProjectController = () => {
     getValues,
     formState: { errors },
     setValue,
-  } = useForm(/* {
-    defaultValues: initialValues,
-    resolver: zodResolver(projectFormValidationSchema),
-  } */);
+  } = useForm();
+
+  const projectWatcher = watch();
+
+  // inicial
+  /* const projectTotal = useMemo(() => {
+    return projectData?.categories.reduce((prev, cat) => {
+      return cat.subcategories.reduce((p, sub) => p + sub.value, 0) + prev;
+    }, 0);
+  }, [projectData]); */
+
+  // {"Casa": {"Aluguel ": 560}, "Lazer": {"Cinema": 4, "Lanches": "5"}}
+  // TODO: add custom types
+  const projectTotal = useMemo(() => {
+    const categoriesValues = Object.values(projectWatcher);
+    return categoriesValues.reduce((prev, subcategory) => {
+      const subValues = Object.values(subcategory);
+      return (
+        subValues.reduce((prev: any, sub: any) => prev + Number(sub), 0) + prev
+      );
+    }, 0);
+  }, [projectWatcher]);
 
   const fetchProjectData = useCallback(async () => {
     if (activeProject) {
-      // todo: fetch values
       const currentMonth = new Date().getMonth();
       const id = getProjectDataId(activeProject?.id, currentMonth);
       const data = await ProjectService.getMonthlyData(id);
       if (data) {
-        console.log({ data });
+        // console.log({ data });
 
         data.categories.forEach((category) => {
           category.subcategories.forEach((subcategories) => {
-            // field={`${category.name}.${sub.name}`}
-            /* console.log("--------------------here?");
-            console.log(
-              `${category.name}.${subcategories.name}`,
-              subcategories.value
-            ); */
             setValue(
               `${category.name}.${subcategories.name}`,
               subcategories.value
@@ -123,6 +133,14 @@ const ProjectController = () => {
     }
   };
 
+  const handleRemove = () => {
+    // TODO: ADD
+  };
+
+  const onClickUpdate = () => {
+    navigation.navigate(PAGES.UPDATE_PROJECT);
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -137,9 +155,12 @@ const ProjectController = () => {
 
   return {
     handleSubmit,
+    handleRemove,
+    onClickUpdate,
     onSubmit,
     isLoading,
     isSending,
+    projectTotal,
     project,
     navigation,
     errors,

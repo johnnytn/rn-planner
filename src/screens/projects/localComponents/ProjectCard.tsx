@@ -13,7 +13,8 @@ interface ProjectCardViewProps {
 const formatDate = (newDate: Date | undefined) => {
   if (!newDate) return "";
   console.log({ newDate });
-  return newDate.toDateString();
+  //ADD FORMATTER
+  return newDate; // newDate.toDateString();
 };
 
 const ProjectCardView = ({ project, onClick }: ProjectCardViewProps) => {

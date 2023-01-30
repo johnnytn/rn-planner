@@ -4,7 +4,7 @@
  *
  */
 import { FontAwesome } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import {
   NavigationContainer,
   DefaultTheme,
@@ -14,23 +14,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName, Pressable } from "react-native";
 
-import Colors from "theme/Colors";
-import useColorScheme from "hooks/useColorScheme";
 // todo: move
 import ModalScreen from "screens/ModalScreen";
 import NotFoundScreen from "screens/NotFoundScreen";
 import ProjectsScreen from "screens/projects";
 
-import {
-  RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
-} from "commons/types/navigation.types";
+import { RootStackParamList } from "commons/types/navigation.types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { PAGES } from "commons/types";
 import ProjectScreen from "screens/projects/project";
 import NewProjectScreen from "screens/projects/newProject";
-import ReportTabScreen from "screens/projects/project/ReportTabScreen";
+import UpdateProjectScreen from "screens/projects/updateProject";
+import HomeHeaderView from "screens/projects/localComponents/HomeHeader";
 
 export default function Navigation({
   colorScheme,
@@ -53,24 +48,34 @@ export default function Navigation({
  */
 // TODO: CHECK
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
+// const colorScheme = useColorScheme();
 function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name={PAGES.PROJECTS}
         component={ProjectsScreen}
-        options={{ title: "dash!" }}
+        options={{
+          /* headerShown: false, */ title: "dash!",
+          header(props) {
+            return <HomeHeaderView />;
+          },
+        }}
       />
       <Stack.Screen
         name={PAGES.NEW_PROJECT}
         component={NewProjectScreen}
-        options={{ title: "Novo projeto" }}
+        options={{ title: "Bora criar um projeto?" }}
       />
       <Stack.Screen
-        name={PAGES.PROJECT}
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        name={PAGES.UPDATE_PROJECT}
+        component={UpdateProjectScreen}
+        options={{ title: "Bora atualizar?" }}
+      />
+      <Stack.Screen
+        name={PAGES.PROJECT_INFO}
+        component={ProjectScreen}
+        options={{ /* headerShown: false,  */ title: "Con" }}
       />
       <Stack.Screen
         name="NotFound"
@@ -88,9 +93,9 @@ function RootNavigator() {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+// const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-function BottomTabNavigator() {
+/* function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
@@ -133,7 +138,7 @@ function BottomTabNavigator() {
       />
     </BottomTab.Navigator>
   );
-}
+} */
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/

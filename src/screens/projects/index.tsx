@@ -1,4 +1,10 @@
-import { Button, SafeAreaView, ScrollView, View } from "react-native";
+import {
+  Button,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  View,
+} from "react-native";
 
 import { PAGES } from "commons/types";
 import ProjectListView from "./localComponents/ProjectList";
@@ -9,18 +15,27 @@ import ProjectsController from "./controller";
 
 // TODO: add localization
 const ProjectsScreen = () => {
-  const { isLoading, projects, isSending, navigation, handleOnClickProject } =
-    ProjectsController();
+  const {
+    isLoading,
+    projects,
+    isSending,
+    navigation,
+    handleOnClickProject,
+    handleRefresh,
+  } = ProjectsController();
 
   return (
     <SafeAreaView>
-      <HomeHeaderView />
+      {/* <HomeHeaderView /> */}
 
       {isLoading ? null : (
         <ScrollView
           contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 10 }}
           /* horizontal */
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+          }
         >
           <View className="py-2">
             <Button
