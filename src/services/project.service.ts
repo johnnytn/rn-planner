@@ -27,6 +27,7 @@ const PROJECT_DATA_DB = "project_data";
 
 const projectDbRef = collection(db, PROJECT_DB);
 const projectRef = query(collection(db, PROJECT_DB));
+// TODO: add mutation after create/update?
 export const useProjects = () =>
   useFirestoreQueryData([PROJECT_DB], projectRef, {
     idField: "_id",
@@ -122,7 +123,7 @@ export default class ProjectService {
     const docRef = doc(db, PROJECT_DATA_DB, id);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data() as ProjectMonthlyDataModel;
-
+    console.log({ data });
     return data;
   }
 }

@@ -26,6 +26,12 @@ const ProjectController = () => {
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
 
+  const projectDataId = getProjectDataId(
+    activeProject?._id,
+    currentMonth,
+    currentYear
+  );
+
   const {
     control,
     handleSubmit,
@@ -49,12 +55,7 @@ const ProjectController = () => {
 
   const fetchProjectData = useCallback(async () => {
     if (activeProject) {
-      const id = getProjectDataId(
-        activeProject?._id,
-        currentMonth,
-        currentYear
-      );
-      const data = await ProjectService.getMonthlyData(id);
+      const data = await ProjectService.getMonthlyData(projectDataId);
       if (data) {
         //  TODO: check number values for inputs
         data.categories.forEach((category) => {
@@ -100,12 +101,13 @@ const ProjectController = () => {
       });
 
       const payload = {
+        _id: projectDataId,
         projectId: activeProject._id,
         currentMonth: projectData.currentMonth,
         currentYear: projectData.currentYear,
         categories: mappedData,
       };
-
+      // console.error(error)
       /* TODO: check updatedAt      }; */
       setIsSending(true);
       await ProjectService.saveMonthlyData(payload);
@@ -114,6 +116,7 @@ const ProjectController = () => {
         navigation.navigate(PAGES.PROJECTS);
       }, 500);
     } catch (error) {
+      console.error(error);
       toastController.open("Erro ao criar projeto");
       throw error;
     } finally {

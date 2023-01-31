@@ -62,7 +62,7 @@ const UpdateProjectController = () => {
       };
       // console.log(activeProject.id);
       setIsSending(true);
-      await ProjectService.update(activeProject.id, payload);
+      await ProjectService.update(activeProject._id, payload);
       toastController.open("Projeto atualizado com sucesso");
       setTimeout(() => {
         navigation.navigate(PAGES.PROJECTS);

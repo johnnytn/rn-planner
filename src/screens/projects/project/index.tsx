@@ -1,25 +1,16 @@
-import { homeStyles } from "./styles";
-import { PAGES } from "commons/types";
-// import ExpenseListView from "./Expenses"
 import ProjectController from "./controller";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView, View } from "react-native";
+
 import ProjectHeaderView from "./localComponents/ProjectHeader";
 import ProjectCategoryView from "./localComponents/ProjectCategory";
-import ButtonOpacityView from "components/ButtonOpacity";
-import { CheckBadgeIcon, CheckIcon } from "react-native-heroicons/outline";
+
+import { CheckIcon } from "react-native-heroicons/outline";
 import FloatButtonOpacityView from "components/FloatButtonOpacity";
 import { BaseSafeAreaView } from "components/BaseSafeArea";
-import { ChulaNarakText, TitilliumText } from "components/StyledText";
+import { ChulaNarakText } from "components/StyledText";
 import BlankProjectScreen from "components/BlankScreen";
-import { useConfiguration } from "contexts/configuration";
 
 const ProjectScreen = () => {
-  const { activeProject } = useConfiguration();
-
-  if (!activeProject?._id) {
-    return <BlankProjectScreen text="Project not found" />;
-  }
   const {
     handleSubmit,
     onSubmit,
