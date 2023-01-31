@@ -19,12 +19,17 @@ import { BaseSafeAreaView } from "components/BaseSafeArea";
 const ProjectsScreen = () => {
   const {
     isLoading,
+    // query: { data, isLoading },
     projects,
     isSending,
     navigation,
     handleOnClickProject,
     handleRefresh,
   } = ProjectsController();
+  console.log("----------------------");
+  // console.log({ project });
+  console.log();
+  // const projects = query?.data as any;
 
   return (
     <BaseSafeAreaView>
@@ -52,7 +57,10 @@ const ProjectsScreen = () => {
             /> */}
           </View>
           {/*btn  Create a new project? */}
-          <ProjectListView projects={projects} onClick={handleOnClickProject} />
+          <ProjectListView
+            projects={projects as any}
+            onClick={handleOnClickProject}
+          />
         </ScrollView>
       )}
     </BaseSafeAreaView>

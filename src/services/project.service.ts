@@ -1,10 +1,7 @@
 // import { api } from "./api.service";
 import { db } from "../../src/fireBaseConfig";
 import {
-  getFirestore,
   collection,
-  query,
-  where,
   getDocs,
   getDoc,
   doc,
@@ -12,11 +9,17 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  query,
 } from "firebase/firestore";
 import {
   ProjectModel,
   ProjectMonthlyDataModel,
 } from "commons/types/project.types";
+import {
+  useFirestoreQuery,
+  useFirestoreQueryData,
+} from "@react-query-firebase/firestore";
+
 import { getProjectDataId } from "commons/utils/formatter";
 
 /*
@@ -30,6 +33,9 @@ const PROJECT_DATA_DB = "project_data";
 // const q = query(collection(db, MODULE_NAME), where("capital", "==", true));
 const projectDbRef = collection(db, PROJECT_DB);
 // const projectDataDbRef = collection(db, PROJECT_DATA_DB);
+
+const ref = query(collection(db, PROJECT_DB));
+export const useProjects = () => useFirestoreQuery(["projects"], ref);
 
 export default class ProjectService {
   static async getMany(): Promise<ProjectModel[]> {
