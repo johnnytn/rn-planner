@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import useToast from "hooks/useToast";
 import ProjectService from "services/project.service";
@@ -29,27 +23,19 @@ const ProjectController = () => {
   const [projectData, setProjectData] = useState<ProjectMonthlyDataModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear();
 
   const {
-    // register,
     control,
     handleSubmit,
     watch,
-    getValues,
     formState: { errors },
     setValue,
-  } = useForm(/* { defaultValues: getInitialValues(activeProject) } */);
+  } = useForm();
 
   const projectWatcher = watch();
 
-  // inicial
-  /* const projectTotal = useMemo(() => {
-    return projectData?.categories.reduce((prev, cat) => {
-      return cat.subcategories.reduce((p, sub) => p + sub.value, 0) + prev;
-    }, 0);
-  }, [projectData]); */
-
-  // {"Casa": {"Aluguel ": 560}, "Lazer": {"Cinema": 4, "Lanches": "5"}}
   // TODO: add custom types
   const projectTotal = useMemo(() => {
     const categoriesValues = Object.values(projectWatcher);
@@ -61,16 +47,15 @@ const ProjectController = () => {
     }, 0);
   }, [projectWatcher]);
 
-  console.log(getValues());
-
   const fetchProjectData = useCallback(async () => {
     if (activeProject) {
-      const currentMonth = new Date().getMonth();
-      const id = getProjectDataId(activeProject?.id, currentMonth);
+      const id = getProjectDataId(
+        activeProject?._id,
+        currentMonth,
+        currentYear
+      );
       const data = await ProjectService.getMonthlyData(id);
       if (data) {
-        // console.log({ data });
-
         //  TODO: check number values for inputs
         data.categories.forEach((category) => {
           category.subcategories.forEach((subcategories) => {
@@ -87,7 +72,8 @@ const ProjectController = () => {
         setProjectData({
           categories: activeProject.categories as MonthlyDataCategories[],
           currentMonth,
-          projectId: activeProject?.id,
+          currentYear,
+          projectId: activeProject?._id,
         });
         setIsLoading(false);
       }
@@ -114,11 +100,11 @@ const ProjectController = () => {
       });
 
       const payload = {
-        projectId: activeProject.id,
+        projectId: activeProject._id,
         currentMonth: projectData.currentMonth,
+        currentYear: projectData.currentYear,
         categories: mappedData,
       };
-      console.log("-------------------");
 
       /* TODO: check updatedAt      }; */
       setIsSending(true);
@@ -128,7 +114,6 @@ const ProjectController = () => {
         navigation.navigate(PAGES.PROJECTS);
       }, 500);
     } catch (error) {
-      // console.log(error);
       toastController.open("Erro ao criar projeto");
       throw error;
     } finally {
@@ -143,12 +128,6 @@ const ProjectController = () => {
   const onClickUpdate = () => {
     navigation.navigate(PAGES.UPDATE_PROJECT);
   };
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
 
   useEffect(() => {
     if (isLoading && activeProject) {

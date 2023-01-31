@@ -18,11 +18,11 @@ const ProjectListView = ({ projects, onClick }: ProjectListProps) => {
     return (
       <View className="items-center">
         {projects.length
-          ? projects.map((project: any, index) => {
+          ? projects.map((project, index) => {
               // console.log(project.data());
               return (
                 <ProjectCardView
-                  key={project.id}
+                  key={project._id}
                   project={project}
                   onClick={onClick}
                 />

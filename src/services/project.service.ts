@@ -10,32 +10,45 @@ import {
   updateDoc,
   deleteDoc,
   query,
+  where,
+  limit,
 } from "firebase/firestore";
 import {
   ProjectModel,
   ProjectMonthlyDataModel,
 } from "commons/types/project.types";
-import {
-  useFirestoreQuery,
-  useFirestoreQueryData,
-} from "@react-query-firebase/firestore";
+import { useFirestoreQueryData } from "@react-query-firebase/firestore";
 
 import { getProjectDataId } from "commons/utils/formatter";
 
-/*
-- Project
- - template
- - data
-
-*/
 const PROJECT_DB = "project";
 const PROJECT_DATA_DB = "project_data";
 // const q = query(collection(db, MODULE_NAME), where("capital", "==", true));
-const projectDbRef = collection(db, PROJECT_DB);
-// const projectDataDbRef = collection(db, PROJECT_DATA_DB);
 
-const ref = query(collection(db, PROJECT_DB));
-export const useProjects = () => useFirestoreQuery(["projects"], ref);
+const projectDbRef = collection(db, PROJECT_DB);
+const projectRef = query(collection(db, PROJECT_DB));
+export const useProjects = () =>
+  useFirestoreQueryData([PROJECT_DB], projectRef, {
+    idField: "_id",
+  });
+
+// TODO: findout how to query for id
+/* export const useProjectDataById = (
+  projectId: string | undefined,
+  currentMonth: number,
+  currentYear: number
+) =>
+  useFirestoreQueryData(
+    [PROJECT_DATA_DB],
+    query(
+      collection(db, PROJECT_DATA_DB),
+      where("projectId", "==", projectId),
+      where("currentMonth", "==", currentMonth),
+      where("currentYear", "==", currentYear),
+      limit(1)
+    ),
+    {  subscribe: true, idField: "_id" }
+  ); */
 
 export default class ProjectService {
   static async getMany(): Promise<ProjectModel[]> {
@@ -45,7 +58,7 @@ export default class ProjectService {
       if (doc.id) {
         const pro = {
           ...doc.data(),
-          id: doc.id,
+          _id: doc.id,
         } as ProjectModel;
         data.push(pro);
       }
@@ -90,7 +103,12 @@ export default class ProjectService {
   static async saveMonthlyData(payload: ProjectMonthlyDataModel) {
     try {
       const id =
-        payload.id || getProjectDataId(payload.projectId, payload.currentMonth);
+        payload._id ||
+        getProjectDataId(
+          payload.projectId,
+          payload.currentMonth,
+          payload.currentYear
+        );
       await setDoc(doc(db, PROJECT_DATA_DB, id), payload);
       console.log("Data has been saved successfully");
     } catch (error) {

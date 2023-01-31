@@ -5,7 +5,7 @@ export interface FirestoreTimestamp {
 
 export interface ProjectModel {
   name: string;
-  id: string;
+  _id: string;
   description?: string;
   categories: CategoryModel[];
   createdAt?: FirestoreTimestamp;
@@ -13,10 +13,12 @@ export interface ProjectModel {
 }
 
 export interface ProjectMonthlyDataModel {
-  id?: string;
+  _id?: string;
   projectId: string;
   currentMonth: number;
+  currentYear: number;
   categories: MonthlyDataCategories[];
+  // slug: string;
 }
 
 interface MonthlyDataSubcategories {

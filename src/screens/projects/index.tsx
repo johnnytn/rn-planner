@@ -26,9 +26,7 @@ const ProjectsScreen = () => {
     handleOnClickProject,
     handleRefresh,
   } = ProjectsController();
-  console.log("----------------------");
-  // console.log({ project });
-  console.log();
+
   // const projects = query?.data as any;
 
   return (
@@ -57,10 +55,7 @@ const ProjectsScreen = () => {
             /> */}
           </View>
           {/*btn  Create a new project? */}
-          <ProjectListView
-            projects={projects as any}
-            onClick={handleOnClickProject}
-          />
+          <ProjectListView projects={projects} onClick={handleOnClickProject} />
         </ScrollView>
       )}
     </BaseSafeAreaView>

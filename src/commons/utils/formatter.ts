@@ -1,9 +1,10 @@
 import { FirestoreTimestamp } from "commons/types/project.types";
 
 export const getProjectDataId = (
-  projectId: string,
-  currentMonth: number | string
-) => `${projectId}-${currentMonth}`;
+  projectId: string | undefined,
+  currentMonth: number | string,
+  currentYear: number | string
+) => `${projectId}-${currentMonth}-${currentYear}`;
 
 export const formatDate = (fbDate: FirestoreTimestamp | undefined) => {
   if (!fbDate) return "";

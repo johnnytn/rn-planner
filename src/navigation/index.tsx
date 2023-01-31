@@ -85,7 +85,7 @@ function RootNavigator() {
       <Stack.Screen
         name={PAGES.PROJECT_INFO}
         component={ProjectScreen}
-        options={{ /* headerShown: false,  */ title: "Con" }}
+        options={{ headerShown: false, title: "Info" }}
       />
       <Stack.Screen
         name="NotFound"

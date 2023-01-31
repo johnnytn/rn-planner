@@ -12,8 +12,14 @@ import FloatButtonOpacityView from "components/FloatButtonOpacity";
 import { BaseSafeAreaView } from "components/BaseSafeArea";
 import { ChulaNarakText, TitilliumText } from "components/StyledText";
 import BlankProjectScreen from "components/BlankScreen";
+import { useConfiguration } from "contexts/configuration";
 
-const ProjectScreen = (/* props: RootTabScreenProps<PAGES.PROJECT_INFO> */) => {
+const ProjectScreen = () => {
+  const { activeProject } = useConfiguration();
+
+  if (!activeProject?._id) {
+    return <BlankProjectScreen text="Project not found" />;
+  }
   const {
     handleSubmit,
     onSubmit,
@@ -26,7 +32,6 @@ const ProjectScreen = (/* props: RootTabScreenProps<PAGES.PROJECT_INFO> */) => {
     projectTotal,
   } = ProjectController();
 
-  // TODO create blank screen
   if (!project) {
     return <BlankProjectScreen text="Project not found" />;
   }

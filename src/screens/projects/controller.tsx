@@ -16,14 +16,8 @@ const ProjectsController = () => {
   const [isSending, setIsSending] = useState(false);
 
   const projects = useMemo(() => {
-    const snapshot = query.data;
-    return (snapshot?.docs || []).map((docSnapshot) => {
-      const data = docSnapshot.data();
-      return {
-        id: docSnapshot.id,
-        ...data,
-      };
-    });
+    // query.data?.forEach((d) => console.log(d));
+    return query.data as ProjectModel[];
   }, [query]);
 
   const handleRefresh = useCallback(() => {
